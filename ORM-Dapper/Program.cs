@@ -28,7 +28,17 @@ namespace ORM_Dapper
             //}
             #endregion
 
+            #region Product Section
             var productRepo = new DapperProductRepository(conn);
+            var productToUpdate = productRepo.GetProduct(940);
+
+            productToUpdate.Name = "UPDATED!!!";
+            productToUpdate.Price = 999.99;
+            productToUpdate.CategoryID = 1;
+            productToUpdate.OnSale = false;
+            productToUpdate.StockLevel = 1;
+
+            productRepo.UpdateProduct(productToUpdate);
             var products = productRepo.GetAllProducts();
 
             foreach (var product in products)
@@ -36,6 +46,7 @@ namespace ORM_Dapper
                 Console.WriteLine($"{product.ProductID} - {product.Name} - {product.Price} - {product.CategoryID} - {product.OnSale} - {product.StockLevel}");
                 Console.WriteLine("---------------------------------------------------");
             }
+            #endregion
         }
     }
 }
