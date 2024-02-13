@@ -18,6 +18,13 @@ namespace ORM_Dapper
             _conn = conn;
         }
 
+        public void DeleteProduct(int id)
+        {
+            _conn.Execute("DELETE FROM sales WHERE ProductID = @id;", new {id = id});
+            _conn.Execute("DELETE FROM reviews WHERE ProductID = @id;", new { id = id });
+            _conn.Execute("DELETE FROM products WHERE ProductID = @id;", new { id = id });
+        }
+
         public IEnumerable<Product> GetAllProducts()
         {
             return _conn.Query<Product>("SELECT * FROM products;");
